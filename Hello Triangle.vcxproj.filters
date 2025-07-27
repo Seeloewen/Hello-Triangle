@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien\Models">
+      <UniqueIdentifier>{dc66269b-4adb-4d79-9bed-5cc33080d510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressourcendateien\Shaders">
+      <UniqueIdentifier>{a2be5e8b-2cb8-4991-9cfb-b363facabf89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressourcendateien\Textures">
+      <UniqueIdentifier>{55092714-d7f9-4fe8-83b3-9360c1f821fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Abstractions">
+      <UniqueIdentifier>{f234c236-9d87-477d-a29e-294370d15d60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Abstractions">
+      <UniqueIdentifier>{25ec2676-e36f-450a-9b78-edd1805458f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Quelldateien\Abstractions</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>Quelldateien\Abstractions</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Quelldateien\Abstractions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>Quelldateien\Abstractions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Util.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Vertex.hlsl">
+      <Filter>Ressourcendateien\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Pixel.hlsl">
+      <Filter>Ressourcendateien\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
