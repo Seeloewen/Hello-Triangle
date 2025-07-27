@@ -121,6 +121,13 @@ HRESULT Application::initD3D11()
 	return S_OK;
 }
 
+void Application::drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3)
+{
+	vertices.push_back({ DirectX::XMFLOAT3{  x1,  y1, 0.0f }, DirectX::XMFLOAT3{ 0.25f, 0.39f, 0.19f } });
+	vertices.push_back({ DirectX::XMFLOAT3{  x2,  y2, 0.0f }, DirectX::XMFLOAT3{ 0.25f, 0.39f, 0.19f } });
+	vertices.push_back({ DirectX::XMFLOAT3{  x3,  y3, 0.0f }, DirectX::XMFLOAT3{ 0.25f, 0.39f, 0.19f } });
+}
+
 HRESULT Application::initWindow()
 {
 	//Initiliaze GLFW and exit if that fails
@@ -164,7 +171,13 @@ void Application::run()
 
 void Application::update()
 {
-	//logic update
+	vertices.clear();
+
+	drawTriangle(0.0f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f);
+
+	/*vertices.push_back({DirectX::XMFLOAT3{0.0f,  0.5f, 0.0f}, DirectX::XMFLOAT3{0.25f, 0.39f, 0.19f}});
+	vertices.push_back({ DirectX::XMFLOAT3{  0.5f, -0.5f, 0.0f }, DirectX::XMFLOAT3{ 0.44f, 0.75f, 0.35f } });
+	vertices.push_back({ DirectX::XMFLOAT3{ -0.5f, -0.5f, 0.0f }, DirectX::XMFLOAT3{ 0.38f, 0.55f, 0.20f } });*/
 }
 
 void Application::render()
@@ -180,10 +193,37 @@ void Application::render()
 
 	const float clearColor[] = { 0.243f, 0.898f, 0.941f, 1.0f };
 
+	//Clear and set viewport and rendertarget
 	deviceContext->ClearRenderTargetView(renderTarget.Get(), clearColor);
-	deviceContext->RSSetViewports(1, &viewport);
+
+	//Render pipeline
+	deviceContext->IASetInputLayout(vertexInputLayout->get().Get()); //Bind input layout
+	UINT stride = sizeof(VertexPositionColor);
+	UINT vertexOffset = 0;
+
+	//Create buffer info and vertex buffer
+	D3D11_BUFFER_DESC bufferInfo = {};
+	bufferInfo.ByteWidth = vertices.size() * sizeof(VertexPositionColor);
+	bufferInfo.Usage = D3D11_USAGE_IMMUTABLE;
+	bufferInfo.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
+	D3D11_SUBRESOURCE_DATA resourceData = {};
+	resourceData.pSysMem = vertices.data();
+	device->CreateBuffer(
+		&bufferInfo,
+		&resourceData,
+		&vertexBuffer);
+
+	deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &vertexOffset); //Bind buffer
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); //How to interpret data (as triangles)
+	deviceContext->RSSetViewports(1, &viewport); //Set viewport
+	deviceContext->VSSetShader(vertexShader->get().Get(), nullptr, 0); //Set vertex shader
+	deviceContext->PSSetShader(pixelShader->get().Get(), nullptr, 0); //Set pixel shader
 	deviceContext->OMSetRenderTargets(1, renderTarget.GetAddressOf(), nullptr);
+	deviceContext->Draw(3, 0);
+
 	swapChain->Present(0, 0);
+
 }
 
 HRESULT Application::createSwapchainResources()

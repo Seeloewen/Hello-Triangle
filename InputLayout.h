@@ -16,4 +16,5 @@ private:
 public:
 	void addInfoElement(const char* semanticName, DXGI_FORMAT format, size_t offset);
 	HRESULT create(ComPtr<ID3DBlob> shaderBlob);
+	ComPtr<ID3D11InputLayout>& get();
 };

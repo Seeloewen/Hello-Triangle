@@ -19,7 +19,6 @@ void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, s
 HRESULT InputLayout::create(ComPtr<ID3DBlob> shaderBlob)
 {
 	//Try creating the input layout from the (hopefully) previously supplied info
-
 	if(FAILED(instance->device->CreateInputLayout(
 		inputLayoutInfo.data(),
 		2,
@@ -33,5 +32,10 @@ HRESULT InputLayout::create(ComPtr<ID3DBlob> shaderBlob)
 	}
 	print("Created Input Layout");
 
-	return E_FAIL;
+	return S_OK;
+}
+
+ComPtr<ID3D11InputLayout>& InputLayout::get()
+{
+	return inputLayout;
 }

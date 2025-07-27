@@ -11,12 +11,12 @@ HRESULT VertexShader::create()
 	if (shaderBlob == nullptr) return E_POINTER;
 
 	//Try creating the vertex shader from the previously compiled shader code
-	ComPtr<ID3D11VertexShader> vertexShader;
+	ComPtr<ID3D11VertexShader> shader;
 	if (FAILED(instance->device->CreateVertexShader(
 		shaderBlob->GetBufferPointer(),
 		shaderBlob->GetBufferSize(),
 		nullptr,
-		&vertexShader)))
+		&shader)))
 	{
 		return E_FAIL;
 	}

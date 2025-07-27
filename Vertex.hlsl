@@ -1,12 +1,12 @@
 struct Input
 {
-    float3 position : POSITION0;
+    float3 position : POSITION;
     float3 color : COLOR0;
 };
 
 struct Output
 {
-    float4 position : SV_Position0;
+    float4 position : SV_Position;
     float3 color : COLOR0;
 };
 

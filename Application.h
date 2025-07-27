@@ -4,6 +4,7 @@
 #include <d3d11.h>
 #include <dxgi1_3.h>
 #include <DirectXMath.h>
+#include <vector>
 
 #include "VertexShader.h"
 #include "PixelShader.h"
@@ -39,6 +40,7 @@ public:
 	void terminate();
 	HRESULT createSwapchainResources();
 	void destroySwapchainResources();
+	void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
 	ComPtr<IDXGIFactory2> dxgiFactory = nullptr;
 	ComPtr<ID3D11Device> device = nullptr;
@@ -48,6 +50,9 @@ public:
 	VertexShader* vertexShader = nullptr;
 	PixelShader* pixelShader = nullptr;
 	InputLayout* vertexInputLayout = nullptr;
+	ComPtr<ID3D11Buffer> vertexBuffer = nullptr;
+	std::vector<VertexPositionColor> vertices;
+
 };
 
 inline Application* instance;
