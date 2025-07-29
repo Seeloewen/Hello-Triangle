@@ -85,7 +85,7 @@ void Renderer::render()
 	const float clearColor[] = { 0.243f, 0.898f, 0.941f, 1.0f };
 	deviceContext->ClearRenderTargetView(renderTarget.Get(), clearColor); //Clear target view
 	deviceContext->RSSetViewports(1, &viewport);
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); //
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	deviceContext->OMSetRenderTargets(1, renderTarget.GetAddressOf(), nullptr);
 
 	primitiveRenderer->render();

@@ -6,17 +6,16 @@
 #include "Application.h"
 #include "ShaderLayout.h"
 
-class PrimitiveVertexBuffer
+class VertexBuffer
 {
 private:
 	ComPtr<ID3D11Buffer> buffer = nullptr;
 	InputLayout* inputLayout = nullptr;
+	std::vector<float> vertices;
 public:
-	PrimitiveVertexBuffer(InputLayout* inputLayout);
+	VertexBuffer(InputLayout* inputLayout);
     ID3D11Buffer* get();
 	void put(float x, float y, float r, float g, float b);
     void use();
 	void flush();
-	std::vector<PrimitiveVertexLayout> vertices;
-
 };

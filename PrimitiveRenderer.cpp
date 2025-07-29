@@ -21,14 +21,14 @@ HRESULT PrimitiveRenderer::init()
 
 	//Create input layout
 	vertexInputLayout = new InputLayout();
-	vertexInputLayout->addInfoElement("POSITION", DXGI_FORMAT_R32G32B32_FLOAT, offsetof(PrimitiveVertexLayout, position));
-	vertexInputLayout->addInfoElement("COLOR", DXGI_FORMAT_R32G32B32_FLOAT, offsetof(PrimitiveVertexLayout, color));
+	vertexInputLayout->addInfoElement("POSITION", DXGI_FORMAT_R32G32B32_FLOAT, 12);
+	vertexInputLayout->addInfoElement("COLOR", DXGI_FORMAT_R32G32B32_FLOAT, 12);
 	if (FAILED(vertexInputLayout->create(vertexShader)))
 	{
 		return E_FAIL;
 	}
 
-	vertexBuffer = new PrimitiveVertexBuffer(vertexInputLayout);
+	vertexBuffer = new VertexBuffer(vertexInputLayout);
 
 	return S_OK;
 }

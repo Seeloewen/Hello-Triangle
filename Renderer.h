@@ -11,7 +11,7 @@ class PrimitiveRenderer;
 class VertexShader;
 class PixelShader;
 class InputLayout;
-class PrimitiveVertexBuffer;
+class VertexBuffer;
 
 class Renderer
 {
@@ -30,7 +30,7 @@ private:
 	ComPtr<IDXGIFactory2> dxgiFactory = nullptr;
 	ComPtr<IDXGISwapChain1> swapChain = nullptr;
 	ComPtr<ID3D11RenderTargetView> renderTarget = nullptr;
-	PrimitiveVertexBuffer* vertexBuffer = nullptr;
+	VertexBuffer* vertexBuffer = nullptr;
 	VertexShader* vertexShader = nullptr;
 	PixelShader* pixelShader = nullptr;
 	InputLayout* vertexInputLayout = nullptr;

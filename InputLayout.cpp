@@ -2,19 +2,20 @@
 #include "Application.h"
 #include "Shader.h"
 
-void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, size_t offset)
+void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, size_t size)
 {
 	//Create a new info element and add it to the list
 	D3D11_INPUT_ELEMENT_DESC element = {};
 	element.SemanticName = semanticName;
 	element.SemanticIndex = 0;
 	element.Format = format;
-	element.InputSlot = 0;
-	element.AlignedByteOffset = (UINT)offset;
+	element.AlignedByteOffset = this->size;
 	element.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	element.InstanceDataStepRate = 0;
 
 	inputLayoutInfo.push_back(element);
+
+	this->size += size;
 }
 
 HRESULT InputLayout::create(Shader* shader)
@@ -39,4 +40,9 @@ HRESULT InputLayout::create(Shader* shader)
 ID3D11InputLayout* InputLayout::get()
 {
 	return inputLayout.Get();
+}
+
+UINT InputLayout::getSize()
+{
+	return size;
 }

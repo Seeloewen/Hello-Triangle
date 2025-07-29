@@ -19,7 +19,7 @@ public:
 	VertexShader* vertexShader = nullptr;
 	PixelShader* pixelShader = nullptr;
 	InputLayout* vertexInputLayout = nullptr;
-	PrimitiveVertexBuffer* vertexBuffer = nullptr;
+	VertexBuffer* vertexBuffer = nullptr;
 private:
 	
 };
