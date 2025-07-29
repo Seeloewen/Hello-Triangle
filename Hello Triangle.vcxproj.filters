@@ -116,6 +116,9 @@
     <ClInclude Include="Resolution.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="nanotime.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Vertex.hlsl">

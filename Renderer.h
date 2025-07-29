@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <d3d11.h>
 #include <dxgi1_3.h>
 #include <vector>
@@ -19,22 +20,20 @@ public:
 	ComPtr<ID3D11Device> device = nullptr;
 	ComPtr<ID3D11DeviceContext> deviceContext = nullptr;
 
+	PrimitiveRenderer* primitiveRenderer = nullptr;
+
 	~Renderer();
 	void render();
 	HRESULT init();
 
-	void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3);
 private:
-	PrimitiveRenderer* primitiveRenderer = nullptr;
+	void updateFrameStats();
 
 	ComPtr<IDXGIFactory2> dxgiFactory = nullptr;
 	ComPtr<IDXGISwapChain1> swapChain = nullptr;
 	ComPtr<ID3D11RenderTargetView> renderTarget = nullptr;
-	VertexBuffer* vertexBuffer = nullptr;
-	VertexShader* vertexShader = nullptr;
-	PixelShader* pixelShader = nullptr;
-	InputLayout* vertexInputLayout = nullptr;
-	std::vector<PrimitiveVertexLayout> vertices;
+	D3D11_VIEWPORT viewport = {};
 
-
+	uint64_t lastRender = 0;
+	int frames;
 };

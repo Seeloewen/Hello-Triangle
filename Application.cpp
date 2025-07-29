@@ -10,6 +10,7 @@
 #include "Util.h"
 #include "Application.h"
 #include "Resolution.h"
+#include "PrimitiveRenderer.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -67,6 +68,7 @@ void Application::run()
 		print(HrToString(hr));
 		throw std::exception("Could not initialize application");
 	}
+	print("Successfully initialized the application. Starting rendering...");
 
 	//Main loop
 	while (!glfwWindowShouldClose(window))
@@ -79,7 +81,8 @@ void Application::run()
 
 void Application::update()
 {
-
+	renderer->primitiveRenderer->drawTriangle({ 200, 10, 400, 10, 200, 200 }, { 0,255,0, 155 });
+	renderer->primitiveRenderer->drawRectangle({ 600, 200, 700, 300 }, { 80, 60, 203, 155 });
 }
 
 GLFWwindow* Application::getWindow()

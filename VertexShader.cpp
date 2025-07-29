@@ -12,17 +12,10 @@ HRESULT VertexShader::create()
 
 	//Try creating the vertex shader from the previously compiled shader code
 	ComPtr<ID3D11VertexShader> shader;
-	if (FAILED(instance->renderer->device->CreateVertexShader(
-		shaderBlob->GetBufferPointer(),
-		shaderBlob->GetBufferSize(),
-		nullptr,
-		&shader)))
-	{
-		return E_FAIL;
-	}
-
+	HRESULT hr = instance->renderer->device->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, &shader);
 	this->shader = shader;
-	return S_OK;
+
+	if (FAILED(hr)) return E_FAIL;
 }
 
 void VertexShader::use()

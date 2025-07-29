@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="nanotime.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="PrimitiveRenderer.h" />
     <ClInclude Include="Rect.h" />

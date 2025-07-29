@@ -10,7 +10,7 @@ ID3D11Buffer* VertexBuffer::get()
 	return buffer.Get();
 }
 
-void VertexBuffer::put(float x, float y, float r, float g, float b)
+void VertexBuffer::put(float x, float y, float r, float g, float b, float a)
 {
 	vertices.push_back(x);
 	vertices.push_back(y);
@@ -18,6 +18,7 @@ void VertexBuffer::put(float x, float y, float r, float g, float b)
 	vertices.push_back(r);
 	vertices.push_back(g);
 	vertices.push_back(b);
+	vertices.push_back(a);
 }
 
 void VertexBuffer::use()

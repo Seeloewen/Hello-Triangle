@@ -16,10 +16,9 @@ public:
 
 	void drawRectangle(Rect rect, Color c);
 	void drawTriangle(Triangle tri, Color c);
+
 	VertexShader* vertexShader = nullptr;
 	PixelShader* pixelShader = nullptr;
 	InputLayout* vertexInputLayout = nullptr;
 	VertexBuffer* vertexBuffer = nullptr;
-private:
-	
 };

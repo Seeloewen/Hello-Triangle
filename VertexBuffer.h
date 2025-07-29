@@ -15,7 +15,7 @@ private:
 public:
 	VertexBuffer(InputLayout* inputLayout);
     ID3D11Buffer* get();
-	void put(float x, float y, float r, float g, float b);
+	void put(float x, float y, float r, float g, float b, float a);
     void use();
 	void flush();
 	UINT getVertAmount();

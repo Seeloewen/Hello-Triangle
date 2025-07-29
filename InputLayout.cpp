@@ -21,16 +21,11 @@ void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, s
 HRESULT InputLayout::create(Shader* shader)
 {
 	//Try creating the input layout from the (hopefully) previously supplied info
-	if(FAILED(instance->renderer->device->CreateInputLayout(
-		inputLayoutInfo.data(),
-		2,
-		shader->shaderBlob.Get()->GetBufferPointer(),
-		shader->shaderBlob.Get()->GetBufferSize(),
-		&inputLayout
-	)))
+	HRESULT hr = instance->renderer->device->CreateInputLayout( inputLayoutInfo.data(), 2, shader->shaderBlob.Get()->GetBufferPointer(), shader->shaderBlob.Get()->GetBufferSize(), &inputLayout);
+	if(FAILED(hr))
 	{
 		print("Could not create Input Layout: " + HrToString(E_FAIL));
-		return E_FAIL;
+		return hr;
 	}
 	print("Created Input Layout");
 
