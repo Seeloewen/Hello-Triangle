@@ -32,6 +32,8 @@ private:
 	ComPtr<IDXGIFactory2> dxgiFactory = nullptr;
 	ComPtr<IDXGISwapChain1> swapChain = nullptr;
 	ComPtr<ID3D11RenderTargetView> renderTarget = nullptr;
+	ComPtr<ID3D11BlendState> blendState = nullptr;
+
 	D3D11_VIEWPORT viewport = {};
 
 	uint64_t lastRender = 0;

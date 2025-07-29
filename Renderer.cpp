@@ -74,6 +74,18 @@ HRESULT Renderer::init()
 	}
 	print("Created Render Target View");
 
+	//Setup blending for transparency
+	D3D11_BLEND_DESC blendDesc = {};
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	device->CreateBlendState(&blendDesc, &blendState);
+
 	//Setup the viewport
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
@@ -95,6 +107,10 @@ void Renderer::render()
 	deviceContext->RSSetViewports(1, &viewport);
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	deviceContext->OMSetRenderTargets(1, renderTarget.GetAddressOf(), nullptr);
+
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	UINT sampleMask = 0xffffffff;
+	deviceContext->OMSetBlendState(blendState.Get(), blendFactor, sampleMask);
 
 	primitiveRenderer->render();
 
