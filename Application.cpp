@@ -9,6 +9,7 @@
 #include "InputLayout.h"
 #include "Util.h"
 #include "Application.h"
+#include "Resolution.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -19,8 +20,8 @@
 Application::Application(std::string title)
 {
 	//Potentially allow input for pos and size later
-	this->width = 1280;
-	this->height = 720;
+	width = 1280;
+	height = 720;
 	this->posX = 100;
 	this->posY = 100;
 	this->title = title;
@@ -78,23 +79,7 @@ void Application::run()
 
 void Application::update()
 {
-	/*vertices.clear();
 
-	drawTriangle(0.0f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f);
-
-	vertices.push_back({DirectX::XMFLOAT3{0.0f,  0.5f, 0.0f}, DirectX::XMFLOAT3{0.25f, 0.39f, 0.19f}});
-	vertices.push_back({ DirectX::XMFLOAT3{  0.5f, -0.5f, 0.0f }, DirectX::XMFLOAT3{ 0.44f, 0.75f, 0.35f } });
-	vertices.push_back({ DirectX::XMFLOAT3{ -0.5f, -0.5f, 0.0f }, DirectX::XMFLOAT3{ 0.38f, 0.55f, 0.20f } });*/
-}
-
-UINT Application::getHeight()
-{
-	return height;
-}
-
-UINT Application::getWidth()
-{
-	return width;
 }
 
 GLFWwindow* Application::getWindow()

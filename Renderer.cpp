@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Application.h"
 #include "PrimitiveRenderer.h"
+#include "Resolution.h"
 
 HRESULT Renderer::init()
 {
@@ -29,8 +30,8 @@ HRESULT Renderer::init()
 
 	//Create swapchain description and actual thing
 	DXGI_SWAP_CHAIN_DESC1 scd = {};
-	scd.Width = instance->getWidth();
-	scd.Height = instance->getHeight();
+	scd.Width = width;
+	scd.Height = height;
 	scd.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	scd.SampleDesc.Count = 1;
 	scd.SampleDesc.Quality = 0;
@@ -77,8 +78,8 @@ void Renderer::render()
 	D3D11_VIEWPORT viewport = {};
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
-	viewport.Width = instance->getWidth();
-	viewport.Height = instance->getHeight();
+	viewport.Width = width;
+	viewport.Height = height;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
 

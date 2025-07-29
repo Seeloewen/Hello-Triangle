@@ -45,11 +45,17 @@ void VertexBuffer::use()
 
 	instance->renderer->deviceContext->IASetInputLayout(inputLayout->get()); //Bind input layout
 	instance->renderer->deviceContext->IASetVertexBuffers(0, 1, buffer.GetAddressOf(), &stride, &offset); //Bind buffer
-
-	flush();
 }
 
 void VertexBuffer::flush()
 {
+	//Draw the vertices and clear the buffer
+	UINT i = getVertAmount();
+	instance->renderer->deviceContext->Draw(i, 0);
 	vertices.clear();
+}
+
+UINT VertexBuffer::getVertAmount()
+{
+	return vertices.size() * sizeof(float) / inputLayout->getSize();
 }

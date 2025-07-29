@@ -35,25 +35,31 @@ HRESULT PrimitiveRenderer::init()
 
 void PrimitiveRenderer::render()
 {
-	drawTriangle({0,0,0,0,0,0}, {0,0,0});
+	drawTriangle({ 200, 10, 400, 10, 200, 200 }, { 0,255,0 });
+	drawRectangle({ 600, 200, 700, 300 }, { 150, 162, 44 });
 
 	vertexBuffer->use();
 
 	vertexShader->use();
 	pixelShader->use();
 
-	instance->renderer->deviceContext->Draw(3, 0);
+	vertexBuffer->flush();
 }
 
 void PrimitiveRenderer::drawRectangle(Rect rect, Color c)
 {
-
+	vertexBuffer->put(rect.x1, rect.y1, c.r, c.g, c.b);
+	vertexBuffer->put(rect.x2, rect.y1, c.r, c.g, c.b);
+	vertexBuffer->put(rect.x2, rect.y2, c.r, c.g, c.b);
+	vertexBuffer->put(rect.x1, rect.y1, c.r, c.g, c.b);
+	vertexBuffer->put(rect.x2, rect.y2, c.r, c.g, c.b);
+	vertexBuffer->put(rect.x1, rect.y2, c.r, c.g, c.b);
 }
 
 
 void PrimitiveRenderer::drawTriangle(Triangle tri, Color c)
 {
-	vertexBuffer->put(0.0f, 0.5f, 1.0f, 0.0f, 0.0f); // links unten, rot
-	vertexBuffer->put(0.5f, -0.5f, 0.0f, 1.0f, 0.0f);  // rechts unten, grün
-	vertexBuffer->put(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f);   // oben, blau
+	vertexBuffer->put(tri.x1, tri.y1, c.r, c.g, c.b);
+	vertexBuffer->put(tri.x2, tri.y2, c.r, c.g, c.b);
+	vertexBuffer->put(tri.x3, tri.y3, c.r, c.g, c.b);
 }

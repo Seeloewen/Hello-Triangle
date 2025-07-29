@@ -72,6 +72,9 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Quelldateien\Abstractions</Filter>
     </ClCompile>
+    <ClCompile Include="Resolution.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="ShaderLayout.h">
       <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="Resolution.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

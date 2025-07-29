@@ -15,12 +15,9 @@ class Application
 {
 
 private:
-
 	std::string title;
-	int32_t width;
-	int32_t height;
-	int32_t posX;
-	int32_t posY;
+	int posX;
+	int posY;
 
 	GLFWwindow* window = nullptr;
 
@@ -29,15 +26,12 @@ private:
 	HRESULT init();
 
 public:
+	Renderer* renderer = nullptr;
+
 	Application(std::string title);
 	~Application();
 	void run();
 	void terminate();
-
-	Renderer* renderer = nullptr;
-
-	UINT getWidth();
-	UINT getHeight();
 	GLFWwindow* getWindow();
 };
 

@@ -18,4 +18,5 @@ public:
 	void put(float x, float y, float r, float g, float b);
     void use();
 	void flush();
+	UINT getVertAmount();
 };
