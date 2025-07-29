@@ -7,5 +7,5 @@ class PixelShader : public Shader
 public:
 	PixelShader(const std::wstring fileName) : Shader(fileName) {};
 	HRESULT create() override;
-	ComPtr<ID3D11PixelShader> get();
+	void use() override;
 };

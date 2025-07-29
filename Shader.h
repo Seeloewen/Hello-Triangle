@@ -13,7 +13,8 @@ public:
 	ComPtr<ID3DBlob> shaderBlob = nullptr;
 	Shader(const std::wstring fileName);
 	virtual HRESULT create() = 0;
-
+	virtual void use() = 0;
+	ID3D11DeviceChild* get();
 protected:
 	std::wstring fileName;
 	ComPtr<ID3D11DeviceChild> shader = nullptr;

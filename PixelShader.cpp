@@ -12,7 +12,7 @@ HRESULT PixelShader::create()
 
 	//Try creating the vertex shader from the previously compiled shader code
 	ComPtr<ID3D11PixelShader> shader;
-	if (FAILED(instance->device->CreatePixelShader(
+	if (FAILED(instance->renderer->device->CreatePixelShader(
 		shaderBlob->GetBufferPointer(),
 		shaderBlob->GetBufferSize(),
 		nullptr,
@@ -25,11 +25,8 @@ HRESULT PixelShader::create()
 	return S_OK;
 }
 
-ComPtr<ID3D11PixelShader> PixelShader::get()
+void PixelShader::use()
 {
-	//Convert back to specific shader type
-	ComPtr<ID3D11PixelShader> convShader;
-	shader.As(&convShader);
-
-	return convShader;
+	//Cast the shader to the correct type and bind it
+	instance->renderer->deviceContext->PSSetShader(static_cast<ID3D11PixelShader*>(get()), nullptr, 0);
 }

@@ -28,6 +28,18 @@
     <Filter Include="Headerdateien\Abstractions">
       <UniqueIdentifier>{25ec2676-e36f-450a-9b78-edd1805458f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Renderer">
+      <UniqueIdentifier>{78c59754-b48b-4305-9776-52b8146a07f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Renderer">
+      <UniqueIdentifier>{121d635a-a121-4aea-ac3b-cb2b3b72ad9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Shapes">
+      <UniqueIdentifier>{7cd9d9d9-8087-409a-a769-64c026e3ad8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Abstractions\VertexBuffer">
+      <UniqueIdentifier>{9f526584-7ce6-4d57-a773-db842b1f4f1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,6 +63,15 @@
     <ClCompile Include="InputLayout.cpp">
       <Filter>Quelldateien\Abstractions</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Quelldateien\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitiveRenderer.cpp">
+      <Filter>Quelldateien\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Quelldateien\Abstractions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">
@@ -69,6 +90,24 @@
       <Filter>Headerdateien\Abstractions</Filter>
     </ClInclude>
     <ClInclude Include="InputLayout.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Headerdateien\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitiveRenderer.h">
+      <Filter>Headerdateien\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Headerdateien\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Headerdateien\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Headerdateien\Abstractions</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLayout.h">
       <Filter>Headerdateien\Abstractions</Filter>
     </ClInclude>
   </ItemGroup>

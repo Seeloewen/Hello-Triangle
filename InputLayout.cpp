@@ -1,5 +1,6 @@
 #include "InputLayout.h"
 #include "Application.h"
+#include "Shader.h"
 
 void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, size_t offset)
 {
@@ -16,14 +17,14 @@ void InputLayout::addInfoElement(const char* semanticName, DXGI_FORMAT format, s
 	inputLayoutInfo.push_back(element);
 }
 
-HRESULT InputLayout::create(ComPtr<ID3DBlob> shaderBlob)
+HRESULT InputLayout::create(Shader* shader)
 {
 	//Try creating the input layout from the (hopefully) previously supplied info
-	if(FAILED(instance->device->CreateInputLayout(
+	if(FAILED(instance->renderer->device->CreateInputLayout(
 		inputLayoutInfo.data(),
 		2,
-		shaderBlob.Get()->GetBufferPointer(),
-		shaderBlob.Get()->GetBufferSize(),
+		shader->shaderBlob.Get()->GetBufferPointer(),
+		shader->shaderBlob.Get()->GetBufferSize(),
 		&inputLayout
 	)))
 	{
@@ -35,7 +36,7 @@ HRESULT InputLayout::create(ComPtr<ID3DBlob> shaderBlob)
 	return S_OK;
 }
 
-ComPtr<ID3D11InputLayout>& InputLayout::get()
+ID3D11InputLayout* InputLayout::get()
 {
-	return inputLayout;
+	return inputLayout.Get();
 }

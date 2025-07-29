@@ -1,13 +1,11 @@
-#include <iostream>
-#include <GLFW/glfw3.h>
 #include "Util.h"
 #include "Application.h"
 
 int main()
 {
-	print("Hello Weberich");
+	print("Hello Triangle by Seeloewen");
 
-	Application* app = new Application("Hello Weberich");
+	Application* app = new Application("Hello Triangle by Seeloewen");
 
 	app->run();
 	delete app;

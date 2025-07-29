@@ -5,6 +5,11 @@
 #include "Shader.h"
 #include "Application.h"
 
+/*
+*	When creating a new shader, make sure to overwrite Shader::create 
+*	and Shader::use accordingly
+*/
+
 Shader::Shader(const std::wstring fileName)
 {
 	this->fileName = fileName;
@@ -13,7 +18,7 @@ Shader::Shader(const std::wstring fileName)
 ComPtr<ID3DBlob> Shader::compile(const std::wstring fileName, const std::string profile)
 {
 	//Check if the device is initialized before starting any compilations
-	if (instance->device == nullptr)
+	if (instance->renderer->device == nullptr)
 	{
 		print("Could not begin shader compilation. Please make sure the shader engine was initialized with a D3D11Device.");
 		return nullptr;
@@ -47,4 +52,9 @@ ComPtr<ID3DBlob> Shader::compile(const std::wstring fileName, const std::string 
 
 	this->shaderBlob = shaderBlob; //blob blob blob
 	return shaderBlob;
+}
+
+ID3D11DeviceChild* Shader::get()
+{
+	return shader.Get();
 }

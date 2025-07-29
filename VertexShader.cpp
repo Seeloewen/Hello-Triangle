@@ -12,7 +12,7 @@ HRESULT VertexShader::create()
 
 	//Try creating the vertex shader from the previously compiled shader code
 	ComPtr<ID3D11VertexShader> shader;
-	if (FAILED(instance->device->CreateVertexShader(
+	if (FAILED(instance->renderer->device->CreateVertexShader(
 		shaderBlob->GetBufferPointer(),
 		shaderBlob->GetBufferSize(),
 		nullptr,
@@ -25,11 +25,8 @@ HRESULT VertexShader::create()
 	return S_OK;
 }
 
-ComPtr<ID3D11VertexShader> VertexShader::get()
+void VertexShader::use()
 {
-	//Convert back to specific shader type
-	ComPtr<ID3D11VertexShader> vertexShader;
-	shader.As(&vertexShader);
-
-	return vertexShader;
+	//Cast the shader to the correct type and bind it
+	instance->renderer->deviceContext->VSSetShader(static_cast<ID3D11VertexShader*>(get()), nullptr, 0);
 }
