@@ -26,6 +26,7 @@ public:
 	void render();
 	HRESULT init();
 	void clearState();
+	void drawTests();
 
 private:
 	void updateFrameStats();

@@ -112,6 +112,8 @@ void Renderer::render()
 	UINT sampleMask = 0xffffffff;
 	deviceContext->OMSetBlendState(blendState.Get(), blendFactor, sampleMask);
 
+	drawTests();
+
 	primitiveRenderer->render();
 
 	swapChain->Present(0, 0);
@@ -150,4 +152,18 @@ Renderer::~Renderer()
 	renderTarget.Reset();
 
 	delete primitiveRenderer;
+}
+
+void Renderer::drawTests()
+{
+	//Draws a variety of test
+	primitiveRenderer->drawTriangle({ 200, 10, 400, 10, 200, 200 }, { 0,255,0, 155 });
+	primitiveRenderer->drawRectangle({ 600, 200, 700, 300 }, { 80, 60, 203, 255 });
+	primitiveRenderer->drawRectangle({ 650, 200, 750, 300 }, { 80, 255, 20, 100 });
+
+	primitiveRenderer->drawRectangle({ 400, 400, 775, 475 }, { 0 });
+	primitiveRenderer->drawRectangle({ 400, 475, 775, 550 }, { 255,0,0 });
+	primitiveRenderer->drawRectangle({ 400, 550, 775, 625 }, { 255,204,0 });
+
+	primitiveRenderer->drawQuad({ 700, 500, 800, 650, 780, 670, 680, 520 }, { 150 });
 }

@@ -62,3 +62,21 @@ void PrimitiveRenderer::drawTriangle(Triangle tri, Color c)
 	vertexBuffer->put(tri.x2, tri.y2, c.r, c.g, c.b, c.a);
 	vertexBuffer->put(tri.x3, tri.y3, c.r, c.g, c.b, c.a);
 }
+
+void PrimitiveRenderer::drawQuad(Quad quad, Color c)
+{
+	vertexBuffer->put(quad.x1, quad.y1, c.r, c.g, c.b, c.a);
+	vertexBuffer->put(quad.x2, quad.y2, c.r, c.g, c.b, c.a);
+	vertexBuffer->put(quad.x3, quad.y3, c.r, c.g, c.b, c.a);
+	vertexBuffer->put(quad.x1, quad.y1, c.r, c.g, c.b, c.a);
+	vertexBuffer->put(quad.x3, quad.y3, c.r, c.g, c.b, c.a);
+	vertexBuffer->put(quad.x4, quad.y4, c.r, c.g, c.b, c.a);
+}
+
+PrimitiveRenderer::~PrimitiveRenderer()
+{
+	delete vertexShader;
+	delete pixelShader;
+	delete vertexInputLayout;
+	delete vertexBuffer;
+}

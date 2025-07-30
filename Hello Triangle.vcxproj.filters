@@ -119,6 +119,9 @@
     <ClInclude Include="nanotime.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>Headerdateien\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Vertex.hlsl">

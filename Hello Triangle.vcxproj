@@ -143,6 +143,7 @@
     <ClInclude Include="nanotime.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="PrimitiveRenderer.h" />
+    <ClInclude Include="Quad.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resolution.h" />

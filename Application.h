@@ -21,7 +21,6 @@ private:
 
 	GLFWwindow* window = nullptr;
 
-	void update();
 	void render();
 	HRESULT init();
 

@@ -74,16 +74,8 @@ void Application::run()
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-		update();
 		renderer->render();
 	}
-}
-
-void Application::update()
-{
-	renderer->primitiveRenderer->drawTriangle({ 200, 10, 400, 10, 200, 200 }, { 0,255,0, 155 });
-	renderer->primitiveRenderer->drawRectangle({ 600, 200, 700, 300 }, { 80, 60, 203, 255 });
-	renderer->primitiveRenderer->drawRectangle({ 650, 200, 750, 300 }, { 80, 255, 20, 100 });
 }
 
 GLFWwindow* Application::getWindow()

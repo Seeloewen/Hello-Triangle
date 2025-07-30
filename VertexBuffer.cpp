@@ -1,4 +1,5 @@
 #include "VertexBuffer.h"
+#include "PrimitiveRenderer.h"
 
 VertexBuffer::VertexBuffer(InputLayout* inputLayout)
 {
@@ -25,6 +26,12 @@ ID3D11Buffer* VertexBuffer::get()
 
 void VertexBuffer::put(float x, float y, float r, float g, float b, float a)
 {
+	//If the buffer is not big enough, render
+	if (1024 - (vertices.size() * sizeof(float)) < inputLayout->getSize())
+	{
+		instance->renderer->primitiveRenderer->render();
+	}
+
 	vertices.push_back(x);
 	vertices.push_back(y);
 	vertices.push_back(0.0f);
@@ -51,7 +58,7 @@ void VertexBuffer::use()
 
 void VertexBuffer::flush()
 {
-	//Draw the vertices and clear the buffer
+	//Draw the vertices and clear the buffer - make sure to bind buffer and shaders first
 	UINT i = getVertAmount();
 	instance->renderer->deviceContext->Draw(i, 0);
 	vertices.clear();
@@ -60,4 +67,9 @@ void VertexBuffer::flush()
 UINT VertexBuffer::getVertAmount()
 {
 	return vertices.size() * sizeof(float) / inputLayout->getSize();
+}
+
+VertexBuffer::~VertexBuffer()
+{
+	delete inputLayout;
 }

@@ -14,7 +14,8 @@ private:
 	std::vector<float> vertices;
 public:
 	VertexBuffer(InputLayout* inputLayout);
-    ID3D11Buffer* get();
+	~VertexBuffer();
+	ID3D11Buffer* get();
 	void put(float x, float y, float r, float g, float b, float a);
     void use();
 	void flush();
