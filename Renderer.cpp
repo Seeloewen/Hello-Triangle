@@ -135,6 +135,16 @@ void Renderer::updateFrameStats()
 	}
 }
 
+void Renderer::clearState()
+{
+	//Reset everything that gets set by specific render states to get a clear state
+	deviceContext->VSSetShader(NULL, nullptr, 0);
+	deviceContext->PSSetShader(NULL, nullptr, 0);
+	deviceContext->IASetVertexBuffers(0, 0, NULL, 0, 0);
+	deviceContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+	deviceContext->IASetInputLayout(NULL);
+}
+
 Renderer::~Renderer()
 {
 	renderTarget.Reset();

@@ -25,6 +25,7 @@ public:
 	~Renderer();
 	void render();
 	HRESULT init();
+	void clearState();
 
 private:
 	void updateFrameStats();

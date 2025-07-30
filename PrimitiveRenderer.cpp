@@ -38,11 +38,11 @@ HRESULT PrimitiveRenderer::init()
 void PrimitiveRenderer::render()
 {
 	vertexBuffer->use();
-
 	vertexShader->use();
 	pixelShader->use();
 
 	vertexBuffer->flush();
+	instance->renderer->clearState();
 }
 
 void PrimitiveRenderer::drawRectangle(Rect rect, Color c)
