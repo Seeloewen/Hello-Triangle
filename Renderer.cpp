@@ -16,9 +16,8 @@ HRESULT Renderer::init()
 {
 	HRESULT hr;
 
-	//Create the D3D11 device (used for creating shaders, textures etc.) and the device context for draw calls to the graphics card
-	const D3D_FEATURE_LEVEL deviceFeatureLevel = D3D_FEATURE_LEVEL_11_0;
-	hr = D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &deviceFeatureLevel, 1, D3D11_SDK_VERSION, &device, nullptr, &deviceContext);
+	//Initialize device and device context
+	hr = initDevice();
 	if (FAILED(hr))
 	{
 		print("Could not create D3D11 device and device context");
@@ -35,20 +34,8 @@ HRESULT Renderer::init()
 	}
 	print("Created DXGIFactory");
 
-	//Create swapchain description and actual thing
-	DXGI_SWAP_CHAIN_DESC1 scd = {};
-	scd.Width = width;
-	scd.Height = height;
-	scd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	scd.SampleDesc.Count = 1;
-	scd.SampleDesc.Quality = 0;
-	scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	scd.BufferCount = 2;
-	scd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-	scd.Scaling = DXGI_SCALING_STRETCH;
-	scd.Flags = {};
-
-	hr = dxgiFactory->CreateSwapChainForHwnd(device.Get(), glfwGetWin32Window(instance->getWindow()), &scd, nullptr, nullptr, &swapChain);
+	//Create the swapchain with double buffering
+	hr = initSwapChain();
 	if (FAILED(hr))
 	{
 		print("Could not create Swapchain");
@@ -56,17 +43,8 @@ HRESULT Renderer::init()
 	}
 	print("Created Swapchain");
 
-	//Create backbuffer
-	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
-	hr = swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer));
-	if (FAILED(hr))
-	{
-		print("Could not get Back Buffer from Swapchain");
-		return hr;
-	}
-
-	//Create Render Target View
-	hr = device->CreateRenderTargetView(backBuffer.Get(), nullptr, &renderTarget);
+	//Create render target view from back buffer
+	hr = initRenderTargetView();
 	if (FAILED(hr))
 	{
 		print("Could not create Render Target View");
@@ -74,17 +52,14 @@ HRESULT Renderer::init()
 	}
 	print("Created Render Target View");
 
-	//Setup blending for transparency
-	D3D11_BLEND_DESC blendDesc = {};
-	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	device->CreateBlendState(&blendDesc, &blendState);
+	//Create BlendState for blending (like transparency)
+	hr = initBlending();
+	if (FAILED(hr))
+	{
+		print("Could not create BlendState");
+		return hr;
+	}
+	print("Created BlendState");
 
 	//Setup the viewport
 	viewport.TopLeftX = 0;
@@ -98,6 +73,80 @@ HRESULT Renderer::init()
 	hr = primitiveRenderer->init();
 
 	return hr;
+}
+
+HRESULT Renderer::initDevice()
+{
+	const D3D_FEATURE_LEVEL deviceFeatureLevel = D3D_FEATURE_LEVEL_11_0;
+	UINT flags = 0;
+#if !defined(NDEBUG)
+	flags = D3D11_CREATE_DEVICE_DEBUG; //Enable debug flag if not in release config
+#endif
+
+	//Create the D3D11 device (used for creating shaders, textures etc.) and the device context for draw calls to the graphics card
+	HRESULT hr = D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, flags, &deviceFeatureLevel, 1, D3D11_SDK_VERSION, &device, nullptr, &deviceContext);
+
+#if !defined(NDEBUG)
+	if (FAILED(device.As(&debugLayer))) //Pass on debug layer
+	{
+		print("Could not get debug layer from device");
+	}
+	else
+	{
+		print("Fetched debug layer from device");
+	}
+#endif
+
+	return hr;
+}
+
+HRESULT Renderer::initSwapChain()
+{
+	//Create swapchain description and actual thing
+	DXGI_SWAP_CHAIN_DESC1 scd = {};
+	scd.Width = width;
+	scd.Height = height;
+	scd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	scd.SampleDesc.Count = 1;
+	scd.SampleDesc.Quality = 0;
+	scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	scd.BufferCount = 2;
+	scd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	scd.Scaling = DXGI_SCALING_STRETCH;
+	scd.Flags = {};
+
+	return dxgiFactory->CreateSwapChainForHwnd(device.Get(), glfwGetWin32Window(instance->getWindow()), &scd, nullptr, nullptr, &swapChain);
+}
+
+HRESULT Renderer::initRenderTargetView()
+{
+	//Create backbuffer
+	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
+	HRESULT hr = swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer));
+	if (FAILED(hr))
+	{
+		print("Could not get Back Buffer from SwapChain");
+		return hr;
+	}
+
+	//Create Render Target View
+	return device->CreateRenderTargetView(backBuffer.Get(), nullptr, &renderTarget);
+}
+
+HRESULT Renderer::initBlending()
+{
+	//Setup blending for transparency (only applies to first RenderTargetView)
+	D3D11_BLEND_DESC blendDesc = {};
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	return device->CreateBlendState(&blendDesc, &blendState);
 }
 
 void Renderer::render()
@@ -143,13 +192,15 @@ void Renderer::clearState()
 	deviceContext->VSSetShader(NULL, nullptr, 0);
 	deviceContext->PSSetShader(NULL, nullptr, 0);
 	deviceContext->IASetVertexBuffers(0, 0, NULL, 0, 0);
-	deviceContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+	//deviceContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 	deviceContext->IASetInputLayout(NULL);
 }
 
 Renderer::~Renderer()
 {
-	renderTarget.Reset();
+#if !defined(NDEBUG)
+	debugLayer->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+#endif
 
 	delete primitiveRenderer;
 }

@@ -68,8 +68,3 @@ UINT VertexBuffer::getVertAmount()
 {
 	return vertices.size() * sizeof(float) / inputLayout->getSize();
 }
-
-VertexBuffer::~VertexBuffer()
-{
-	delete inputLayout;
-}

@@ -31,10 +31,16 @@ public:
 private:
 	void updateFrameStats();
 
+	HRESULT initDevice();
+	HRESULT initSwapChain();
+	HRESULT initBlending();
+	HRESULT initRenderTargetView();
+
 	ComPtr<IDXGIFactory2> dxgiFactory = nullptr;
 	ComPtr<IDXGISwapChain1> swapChain = nullptr;
 	ComPtr<ID3D11RenderTargetView> renderTarget = nullptr;
 	ComPtr<ID3D11BlendState> blendState = nullptr;
+	ComPtr<ID3D11Debug> debugLayer = nullptr;
 
 	D3D11_VIEWPORT viewport = {};
 

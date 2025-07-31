@@ -18,6 +18,15 @@
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "dxguid.lib")
 
+/*
+* This application is meant as a personal project for learning DX11
+* It is deliberately made to be very verbose in logging and error checks
+* as it makes debugging way easier. Since this is only an experimental
+* project, stuff may not work or break, so use with caution
+* - Seeloewen
+*/
+
+
 Application::Application(std::string title)
 {
 	//Potentially allow input for pos and size later
